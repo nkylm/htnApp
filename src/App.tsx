@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './themes/theme';
+import EventPage from './pages/EventPage';
+import EventDataProvider from './contexts/EventData';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const client = new ApolloClient({
+		uri: 'https://api.hackthenorth.com/v3/graphql',
+		cache: new InMemoryCache(),
+	});
+
+	return (
+		<ThemeProvider theme={theme}>
+			<EventDataProvider>
+				<ApolloProvider client={client}>
+					<CssBaseline />
+					<EventPage />
+				</ApolloProvider>
+			</EventDataProvider>
+		</ThemeProvider>
+	);
+};
 
 export default App;
