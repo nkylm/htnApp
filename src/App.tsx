@@ -12,12 +12,7 @@ import EventDataProvider from './contexts/EventData';
 
 const App = () => {
 	const client = new ApolloClient({
-		link: new HttpLink({
-			uri: 'https://api.hackthenorth.com/v3/graphql',
-			fetchOptions: {
-				mode: 'no-cors',
-			},
-		}),
+		uri: 'https://api.hackthenorth.com/v3/graphql',
 		cache: new InMemoryCache(),
 	});
 
