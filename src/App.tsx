@@ -1,4 +1,9 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import {
+	ApolloProvider,
+	ApolloClient,
+	InMemoryCache,
+	HttpLink,
+} from '@apollo/client';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './themes/theme';
@@ -7,7 +12,12 @@ import EventDataProvider from './contexts/EventData';
 
 const App = () => {
 	const client = new ApolloClient({
-		uri: 'https://api.hackthenorth.com/v3/graphql',
+		link: new HttpLink({
+			uri: 'https://api.hackthenorth.com/v3/graphql',
+			fetchOptions: {
+				mode: 'no-cors',
+			},
+		}),
 		cache: new InMemoryCache(),
 	});
 
